@@ -1,4 +1,4 @@
-# cybers
+# Cybers
 Faire un jeu 2D CyberPunk en Python:
 	-Texturing ==> Sprit
 		-Réaliser un Tileset
