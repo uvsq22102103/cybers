@@ -13,7 +13,7 @@ perso1 = pygame.image.load(perso1_image)
 perso1 = pygame.transform.scale(perso1,(150, 240))
 run = True
 
-taille,x,y = 10,HAUTEUR//2,LARGEUR//2 #Variable statique
+x,y = HAUTEUR//2,LARGEUR//2 #Variable statique
 movex,movey = 0,0 #Variable delta
 
 while run:
