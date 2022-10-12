@@ -10,7 +10,7 @@ pygame.display.set_caption("Cyber's")
 background = pygame.image.load(background_image).convert()
 run = True
 
-taille,x,y = 10,LARGEUR//2,HAUTEUR//2 #Variable statique
+taille,x,y = 10,HAUTEUR//2,LARGEUR//2 #Variable statique
 movex,movey,agrandir = 0,0,0 #Variable delta
 
 while run:
@@ -41,13 +41,12 @@ while run:
             elif event.key == pygame.K_RIGHT:
                 movex = 0
             elif event.key == pygame.K_LEFT:
-                movex = 0cercle.move(x,y)
-    
+                movex = 0
     x += movex
     y += movey
     taille += agrandir
     screen.blit(background,(0,0))
-    cercle = pygame.draw.circle(background, (90, 50, 250), (x, y), taille)
+    cercle = pygame.draw.circle(screen, (90, 50, 250), (x, y), taille)
     pygame.display.update()
 
 pygame.quit()
