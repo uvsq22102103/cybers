@@ -5,10 +5,11 @@ def start_the_game():
     print("Et toc !")
     background = pygame.image.load(background_image).convert()
     perso1 = pygame.image.load(perso1_image)
-    perso1 = pygame.transform.scale(perso1,(150, 240))
+    perso1 = pygame.transform.scale(perso1,(150, 240)).convert_alpha()
     run = True
     x,y = HAUTEUR//2,LARGEUR//2 #Variable statique
     movex,movey = 0,0 #Variable delta
+    clock = pygame.time.Clock()
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,6 +46,8 @@ def start_the_game():
         screen.blit(background,(0,0))
         screen.blit(perso1,(x,y))
         pygame.display.update()
+        clock.tick(60)
+
 
 
 background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
