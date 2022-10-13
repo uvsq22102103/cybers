@@ -58,16 +58,29 @@ screen = pygame.display.set_mode((HAUTEUR,LARGEUR))
 pygame.display.set_caption("Cyber's")
 
 mytheme = pygame_menu.Theme(widget_font=pygame_menu.font.FONT_8BIT,
-                            background_color=(0, 0, 0, 255),
+                            background_color=(255, 0, 0, 255),
                             title_background_color=(109, 7, 26),
                             title_font_shadow=True,
                             widget_padding=100)
 
 menu = pygame_menu.Menu("Cyber's", HAUTEUR, LARGEUR,theme=mytheme)
+arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size = (10,15),)
 menu.add.text_input("Ton CyberNom est ", default='')
 menu.add.button('Play', start_the_game)
 menu.add.button('Quit', pygame_menu.events.EXIT)
-menu.mainloop(screen)
+afficher_menu = True
+
+while afficher_menu:
+    events = pygame.event.get()
+    for event in events:
+        if event.type == pygame.QUIT:
+            afficher_menu = False
+    if menu.is_enabled():
+        menu.update(events)
+        menu.draw(screen)
+        if (menu.get_current().get_selected_widget()):
+            arrow.draw(screen,menu.get_current().get_selected_widget())
+    pygame.display.update()
 
 pygame.quit()
 quit()
