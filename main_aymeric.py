@@ -109,7 +109,7 @@ while game:
         perso1_rect = perso1.get_rect(center=(x,y))
         screen.blit(perso1,perso1_rect)
     
-    clock.tick(60)
+    clock.tick(30)
     pygame.display.update()
 
 pygame.quit()
