@@ -10,7 +10,6 @@ def start_the_game():
     clock = pygame.time.Clock()
     x,y = HAUTEUR//2,LARGEUR//2 #Variable statique
     movex,movey = 0,0 #Variable delta
-    clock = pygame.time.Clock()
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -20,13 +19,13 @@ def start_the_game():
                 if event.key == pygame.K_SPACE:
                     pass
                 elif event.key == pygame.K_UP:
-                    movey = -2
+                    movey = -10
                 elif event.key == pygame.K_DOWN:
-                    movey = 2
+                    movey = 10
                 elif event.key == pygame.K_RIGHT:
-                    movex = 2
+                    movex = 10
                 elif event.key == pygame.K_LEFT:
-                    movex = -2
+                    movex = -10
                 elif event.key == pygame.K_ESCAPE:
                     run = False
 
