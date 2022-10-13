@@ -9,7 +9,7 @@ LARGEUR, HAUTEUR = 1920, 1080
 # Classes #
 
 class Character(pygame.sprite.Sprite):
-    def __init__(self,chemin,animated:bool=False,scale:int=5):
+    def __init__(self,chemin,animated:bool=False,scale:int=5,x=False,y=False):
         super().__init__()
         if animated:
             self.images = []
@@ -18,16 +18,29 @@ class Character(pygame.sprite.Sprite):
                 temp = pygame.transform.scale(temp,(25*scale, 40*scale)).convert_alpha()
                 self.images.append(temp)
             self.image = self.images[0]
+            self.__compteur = 0
         else:
             self.image = pygame.image.load(chemin)
-            if scale != 1:
-                self.image = pygame.transform.scale(self.image,(25*scale, 40*scale)).convert_alpha()
+            self.image = pygame.transform.scale(self.image,(25*scale, 40*scale)).convert_alpha()
         self.chemin = chemin
         self.animated = animated
         self.scale = scale
-        self.x = random.randint(400,LARGEUR-400)
-        self.y = random.randint(300,HAUTEUR-300)
-        self.rect = self.image.get_rect(center=(self.x,self.y))
+        if not x and not y:
+            x = random.randint(400,LARGEUR-400)
+            y = random.randint(300,HAUTEUR-300)
+        self.rect = self.image.get_rect(center=(x,y))
+    def nextframe(self,frame=5): # ce n'est pas une lecture d'images en boomerang
+        if self.animated:
+            self.__compteur += 1
+            if self.__compteur >= 30/frame: #30 c'est les fps définis par la Clock
+                self.__compteur = 0
+                i = self.images.index(self.image)
+                if i >= len(self.images)-1:
+                    self.image = self.images[0]
+                else:
+                    self.image = self.images[i+1]
+                self.rect = self.image.get_rect(center=(self.rect.centerx,self.rect.centery))
+            
 
 
 #######################################################
@@ -72,7 +85,7 @@ mytheme = pygame_menu.Theme(widget_font=pygame_menu.font.FONT_BEBAS,
                             background_color=(255, 0, 0, 255),
                             title_background_color=(109, 7, 26),
                             title_font_shadow=True,
-                            widget_padding=100)
+                            widget_padding=40)
 
 
 ########################################################################
@@ -169,8 +182,11 @@ while game:
         # Move #
         perso1.rect.left += movex
         perso1.rect.bottom += movey
+        #perso2.rect.left += movex
+        #perso2.rect.bottom += movey
         ######################
         # Affiche Characters #
+        perso2.nextframe(frame=2)
         screen.blit(perso2.image,perso2.rect)
         screen.blit(perso1.image,perso1.rect)
     
