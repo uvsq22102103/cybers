@@ -10,6 +10,7 @@ def start_the_game():
     clock = pygame.time.Clock()
     x,y = HAUTEUR//2,LARGEUR//2 #Variable statique
     movex,movey = 0,0 #Variable delta
+    clock = pygame.time.Clock()
     while run:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -47,6 +48,10 @@ def start_the_game():
         screen.blit(perso1,(x,y))
         pygame.display.update()
         clock.tick(60)
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5ec6702de6a1e485c3146fd4d9fa6b36a49abfa4
 
 
 background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
