@@ -48,10 +48,6 @@ def start_the_game():
         screen.blit(perso1,(x,y))
         pygame.display.update()
         clock.tick(60)
-<<<<<<< HEAD
-=======
-
->>>>>>> 5ec6702de6a1e485c3146fd4d9fa6b36a49abfa4
 
 
 background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
