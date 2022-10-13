@@ -1,11 +1,37 @@
-import pygame
-import pygame_menu
-import random
+import pygame, pygame_menu, random, os
+
+##############
+# résolution #
+
+LARGEUR, HAUTEUR = 1920, 1080
+
+###########
+# Classes #
+
+class Character(pygame.sprite.Sprite):
+    def __init__(self,chemin,animated:bool=False,scale:int=5):
+        super().__init__()
+        if animated:
+            self.images = []
+            for i in os.listdir(chemin):
+                temp = pygame.image.load(chemin+i)
+                temp = pygame.transform.scale(temp,(25*scale, 40*scale)).convert_alpha()
+                self.images.append(temp)
+            self.image = self.images[0]
+        else:
+            self.image = pygame.image.load(chemin)
+            if scale != 1:
+                self.image = pygame.transform.scale(self.image,(25*scale, 40*scale)).convert_alpha()
+        self.chemin = chemin
+        self.animated = animated
+        self.scale = scale
+        self.x = random.randint(400,LARGEUR-400)
+        self.y = random.randint(300,HAUTEUR-300)
+        self.rect = self.image.get_rect(center=(self.x,self.y))
 
 
-background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
-perso1_image = "tilesheet/perso1/pepe1.png"
-HAUTEUR, LARGEUR = 1920, 1080
+#######################################################
+# Fonctions ###########################################
 
 def load_game():
     global afficher_menu
@@ -13,46 +39,77 @@ def load_game():
     print("Et toc !")
     menu._open(loading)
     pygame.time.set_timer(update_loading,30)
-    
+
+
+#######################################################
+# PYGAME INIT #########################################
 
 pygame.init()
-screen = pygame.display.set_mode((HAUTEUR,LARGEUR))
+screen = pygame.display.set_mode((LARGEUR,HAUTEUR))
 pygame.display.set_caption("Cyber's")
+
+
+###############################################
+# TESTs et PATHs ##############################
+
+background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
+perso1_image = "tilesheet/perso1/pepe1.png"
+perso2_images = "tilesheet/perso2/"
+
+
 ########################################################################
-#Chargement des images##################################################
+# Chargement des variables #############################################
+
 background = pygame.image.load(background_image).convert()
-perso1 = pygame.image.load(perso1_image)
-perso1 = pygame.transform.scale(perso1,(150, 240)).convert_alpha()
+perso1 = Character(perso1_image,False,scale=5)
+perso2 = Character(perso2_images,True,scale=5)
+
+
 ########################################################################
-#Thème perso############################################################
+# Thème perso ##########################################################
+
 mytheme = pygame_menu.Theme(widget_font=pygame_menu.font.FONT_BEBAS,
                             background_color=(255, 0, 0, 255),
                             title_background_color=(109, 7, 26),
                             title_font_shadow=True,
                             widget_padding=100)
+
+
 ########################################################################
-#Menu main##############################################################
-menu = pygame_menu.Menu("Cyber's", HAUTEUR, LARGEUR,theme=mytheme)
+# Menu main ############################################################
+
+menu = pygame_menu.Menu("Cyber's", LARGEUR, HAUTEUR,theme=mytheme)
 arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size = (10,15),)
 menu.add.text_input("Ton  CyberNom  est : ", default='')
 menu.add.button('Play', load_game)
 menu.add.button('Quit', pygame_menu.events.EXIT)
+
+
 ##################################################################################
-#Menu de chargement###############################################################
-loading = pygame_menu.Menu("Chargement en cours",HAUTEUR,LARGEUR,theme=mytheme)
+# Menu de chargement #############################################################
+
+loading = pygame_menu.Menu("Chargement en cours",LARGEUR,HAUTEUR,theme=mytheme)
 loading.add.progress_bar("Cyber's Net",progressbar_id="1",width=300)
 update_loading = pygame.USEREVENT + 0
+
+
 ##################################################################################
-#Variables du Grand While#########################################################
+# Variables du Grand While #######################################################
+
 game = True
 afficher_menu = True
 run = False
 clock = pygame.time.Clock()
+
+
 ##################################################
-#Coord pepe#######################################
-x,y = HAUTEUR//2,LARGEUR//2 #Variable statique
+# Mouvement ######################################
+
 movex,movey = 0,0 #Variable delta
+
+
 ##################################################
+# Le Grand While #################################
 
 while game:
     events = pygame.event.get()
@@ -105,13 +162,19 @@ while game:
                     movex = 0
                 elif event.key == pygame.K_LEFT:
                     movex = 0
-        x += movex
-        y += movey
+        #################
+        # Affiche Décor #
         screen.blit(background,(0,0))
-        perso1_rect = perso1.get_rect(center=(x,y))
-        screen.blit(perso1,perso1_rect)
+        ########
+        # Move #
+        perso1.rect.left += movex
+        perso1.rect.bottom += movey
+        ######################
+        # Affiche Characters #
+        screen.blit(perso2.image,perso2.rect)
+        screen.blit(perso1.image,perso1.rect)
     
-    clock.tick(30)
+    clock.tick(30) #Framerate 30 FPS
     pygame.display.update()
 
 pygame.quit()
