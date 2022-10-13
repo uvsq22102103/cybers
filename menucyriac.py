@@ -39,7 +39,7 @@ perso1 = pygame.transform.scale(perso1,(150, 240)).convert_alpha()
 #Menus#####################################
 ###########################################
 mainmenu = pygame_menu.Menu("Cyber's",HAUTEUR,LARGEUR,theme = themes.THEME_DARK)
-mainmenu.add.text_input("Pseudo:", default="Entre ton cyber-nom", maxchar=20)
+mainmenu.add.text_input(" ",default="Entre ton cyber-nom", maxchar=20)
 mainmenu.add.button("Jouer", start_the_game)
 mainmenu.add.button("Options", option_menu)
 arrow = pygame_menu.widgets.LeftArrowSelection(arrow_size = (100,150))
