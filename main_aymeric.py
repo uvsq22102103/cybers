@@ -1,5 +1,6 @@
 import pygame
 import pygame_menu
+import random
 
 
 background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
@@ -61,8 +62,8 @@ while game:
                 game = False
             if event.type == update_loading:
                 progress = loading.get_widget("1")
-                progress.set_value(progress.get_value()+1)
-                if progress.get_value() == 100:
+                progress.set_value(progress.get_value()+random.randint(0,3))
+                if progress.get_value() > 97:
                     pygame.time.set_timer(update_loading,0)
                     progress.set_value(0)
                     run, afficher_menu = True, False
@@ -89,8 +90,9 @@ while game:
                 elif event.key == pygame.K_LEFT:
                     movex = -10
                 elif event.key == pygame.K_ESCAPE:
-                    run = False
-                    pause = True # On verra ça plus tard dans le developpement
+                    pass
+                    #run = False
+                    #pause = True # On verra ça plus tard dans le developpement
 
             elif event.type == pygame.KEYUP: # If clée relâchée
                 if event.key == pygame.K_SPACE:
