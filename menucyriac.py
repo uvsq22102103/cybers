@@ -1,9 +1,8 @@
-from turtle import color
 import pygame
 import pygame_menu
 from pygame_menu import themes
 
-HAUTEUR, LARGEUR = 1920, 1080
+HAUTEUR, LARGEUR = 1920,1080
 
 pygame.init()
 screen = pygame.display.set_mode((HAUTEUR,LARGEUR))
