@@ -11,5 +11,6 @@ ainsi que des expéditions en plateformers.
 > - Apport de personnages **avec** animations / **OK**
 > - Animations dépendant de l'input / **à faire**
 > - Réaliser des Tileset / **In progress**
+> - Mettre en place un 1er décor / **à faire**
 > ## Plus tard :
 > - Instance multijoueur local
