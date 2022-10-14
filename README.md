@@ -5,11 +5,11 @@ il s'agira d'un Top-Down en monde ouvert limité qui proposera une gestion anina
 ainsi que des expéditions en plateformers.
 
 > ## Objectifs :
-> - Menu du Jeu **OK**
-> - Instance de jeu vide **OK**
-> - Apport de personnages **sans** animations **OK**
-> - Apport de personnages **avec** animations **OK**
-> - Animations dépendant de l'input **à faire**
-> - Réaliser des Tileset **In progress**
+> - Menu du Jeu / **OK**
+> - Instance de jeu vide / **OK**
+> - Apport de personnages **sans** animations / **OK**
+> - Apport de personnages **avec** animations / **OK**
+> - Animations dépendant de l'input / **à faire**
+> - Réaliser des Tileset / **In progress**
 > ## Plus tard :
 > - Instance multijoueur local
