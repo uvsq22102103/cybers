@@ -66,8 +66,8 @@ pygame.display.set_caption("Cyber's")
 # TESTs et PATHs ##############################
 
 background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
-perso1_image = "tilesheet/perso1/"
-perso2_images = "tilesheet/perso2/"
+perso1_image = "tilesheet/perso1/idle/"
+perso2_images = "tilesheet/perso2/idle/"
 
 
 ########################################################################
@@ -82,7 +82,7 @@ perso2 = Character(perso2_images,True,scale=3)
 # Thème perso ##########################################################
 
 mytheme = pygame_menu.Theme(widget_font=pygame_menu.font.FONT_BEBAS,
-                            background_color=(255, 0, 0, 255),
+                            background_color=(0, 0, 0, 255),
                             title_background_color=(109, 7, 26),
                             title_font_shadow=True,
                             widget_padding=40)
