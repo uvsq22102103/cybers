@@ -13,7 +13,7 @@ class Character(pygame.sprite.Sprite):
         super().__init__()
         if animated:
             self.images = []
-            for i in os.listdir(chemin):
+            for i in sorted(os.listdir(chemin)):
                 temp = pygame.image.load(chemin+i)
                 temp = pygame.transform.scale(temp,(25*scale, 40*scale)).convert_alpha()
                 self.images.append(temp)
@@ -66,7 +66,7 @@ pygame.display.set_caption("Cyber's")
 # TESTs et PATHs ##############################
 
 background_image = "tilesheet/background/nuit-etoile-mont-blanc.jpg"
-perso1_image = "tilesheet/perso1/pepe1.png"
+perso1_image = "tilesheet/perso1/"
 perso2_images = "tilesheet/perso2/"
 
 
@@ -74,8 +74,8 @@ perso2_images = "tilesheet/perso2/"
 # Chargement des variables #############################################
 
 background = pygame.image.load(background_image).convert()
-perso1 = Character(perso1_image,False,scale=5)
-perso2 = Character(perso2_images,True,scale=5)
+perso1 = Character(perso1_image,True,scale=3)
+perso2 = Character(perso2_images,True,scale=3)
 
 
 ########################################################################
@@ -132,8 +132,8 @@ while game:
                 game = False
             if event.type == update_loading:
                 progress = loading.get_widget("1")
-                progress.set_value(progress.get_value()+random.randint(0,3))
-                if progress.get_value() > 97:
+                progress.set_value(progress.get_value()+random.randint(0,5))
+                if progress.get_value() > 95:
                     pygame.time.set_timer(update_loading,0)
                     progress.set_value(0)
                     run, afficher_menu = True, False
@@ -180,14 +180,16 @@ while game:
         screen.blit(background,(0,0))
         ########
         # Move #
-        perso1.rect.left += movex
-        perso1.rect.bottom += movey
+        if not perso1.rect.colliderect(perso2.rect):
+            perso1.rect.left += movex
+            perso1.rect.bottom += movey
         #perso2.rect.left += movex
         #perso2.rect.bottom += movey
         ######################
         # Affiche Characters #
         perso2.nextframe(frame=2)
         screen.blit(perso2.image,perso2.rect)
+        perso1.nextframe(frame=4)
         screen.blit(perso1.image,perso1.rect)
     
     clock.tick(30) #Framerate 30 FPS
